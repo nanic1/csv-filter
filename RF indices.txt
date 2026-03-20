@@ -1,0 +1,17 @@
+cnpj_basico  ordem  dv → formam o CNPJ completo
+
+matriz_filial → 1 = matriz, 2 = filial
+
+nome_fantasia → nome comercial
+
+situacao_cadastral → ex 02 (ativa), 08 (baixada)
+
+data_inicio_atividade → quando a empresa começou
+
+cnae_principal  secundários → atividades econômicas
+
+endereço → tipo_logradouro, logradouro, número, complemento, bairro, CEP, UF
+
+codigo_municipio → código IBGE
+
+contato → DDD + telefone, fax, email
