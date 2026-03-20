@@ -31,7 +31,7 @@ with open(input_file, "r", encoding="latin-1", newline="") as infile, \
             continue
 
         cnpj = "".join(x.strip() for x in row[0:3])
-        endereco = " ".join(x.strip() for x in row[13:16])
+        endereco = " ".join(x.strip() for x in row[13:16]).upper()
         bairro = row[17].upper()
         uf = row[19].upper()
         tel1 = "".join(x.strip() for x in row[21:23])
