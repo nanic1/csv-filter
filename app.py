@@ -42,12 +42,12 @@ def executar_filtro():
 
     total, filtrado = filtrar_arquivo(
         input_file,
-        "Condominiofiltro.csv",
+        "CSVFiltrado.csv",
         key_words
     )
 
     label_resultado.config(
-        text=f"Filtro realizado com sucesso!\nFiltrados: {filtrado}\nArquivo salvo como Condominiofiltro.csv"
+        text=f"Filtro realizado com sucesso!\nFiltrados: {filtrado}\nArquivo salvo como CSVFiltrado.csv"
     )
 
 # GUI
