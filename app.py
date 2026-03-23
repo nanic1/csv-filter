@@ -1,39 +1,92 @@
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import filedialog
+from tkinter import font
+from column_read import filtrar_arquivo
 import csv
 
+input_file = ""  # global
+
 def selecionar_arquivo():
-    caminho = filedialog.askopenfilename(
+    global input_file
+
+    input = filedialog.askopenfilename(
         title="Selecione um arquivo CSV",
         filetypes=(("Arquivos CSV", "*.csv"), ("Todos os arquivos", "*.*"))
     )
     
-    if caminho:
+    if input:
+        input_file = input
         try:
-            with open(caminho, newline='', encoding='utf-8') as arquivo:
-                leitor = csv.reader(arquivo)
-                dados = list(leitor)  # Converte para lista de listas
-            label_arquivo.config(text=f"Arquivo selecionado:\n{caminho}")
-            label_dados.config(text=f"Linhas do arquivo:\n{len(dados)}")
-        except Exception as e:
-            label_arquivo.config(text=f"Erro ao ler arquivo: {e}") 
+            with open(input, newline='', encoding='latin-1') as arquivo:
+                leitor = csv.reader(arquivo, delimiter=";")
+                linhas = sum(1 for _ in leitor)
 
-# Criação da janela principal
+            label_arquivo.config(text=f"Arquivo:\n{input}")
+            label_dados.config(text=f"Linhas: {linhas}")
+        except Exception as e:
+            label_arquivo.config(text=f"Erro: {e}") 
+
+def executar_filtro():
+    if not input_file:
+        label_resultado.config(text="Selecione um arquivo primeiro!")
+        return
+
+    label_resultado.config(text="Aguarde, o programa está filtrando seus dados...")
+    palavras = entrada_palavras.get()
+    
+    key_words = [
+        p.strip().upper()
+        for p in palavras.split(",")
+        if p.strip()
+    ]
+
+    total, filtrado = filtrar_arquivo(
+        input_file,
+        "Condominiofiltro.csv",
+        key_words
+    )
+
+    label_resultado.config(
+        text=f"Filtro realizado com sucesso!\nFiltrados: {filtrado}\nArquivo salvo como Condominiofiltro.csv"
+    )
+
+# GUI
 janela = tk.Tk()
 janela.title("CSV Filter")
-janela.geometry("500x300")
+janela.resizable(False, False)
+janela.geometry("500x350")
 
-# Botão para abrir o arquivo
-botao_abrir = tk.Button(janela, text="Escolher arquivo CSV", command=selecionar_arquivo)
-botao_abrir.pack(pady=20)
+janela.iconbitmap("filter.ico")
 
-# labels para exibir dados na tela
-label_arquivo = tk.Label(janela, text="Nenhum arquivo selecionado")
-label_arquivo.pack(pady=10)
+titulo_label = tk.Label(
+    janela, 
+    text="Filtro de dados da Receita Federal", 
+    font=("Arial", 20, "bold")
+)
+titulo_label.pack(pady=5)
+
+botao_abrir = tk.Button(janela, text="Escolher CSV", command=selecionar_arquivo)
+botao_abrir.pack(pady=5)
+
+label_arquivo = tk.Label(janela, text="Nenhum arquivo")
+label_arquivo.pack()
 
 label_dados = tk.Label(janela)
-label_dados.pack(pady=2)
+label_dados.pack()
 
-# Loop principal da GUI
+# campo de palavras-chave
+label_palavras_chave = tk.Label(janela, text="Insira as palavras chave desejadas para filtrar. Separar por ,")
+label_palavras_chave.pack(pady=10)
+entrada_palavras = tk.Entry(janela, width=50)
+entrada_palavras.pack(pady=5)
+entrada_palavras.insert(0, "")
+
+# botão de filtro
+botao_filtrar = tk.Button(janela, text="Filtrar", command=executar_filtro)
+botao_filtrar.pack(pady=5)
+
+# resultado
+label_resultado = tk.Label(janela, text="")
+label_resultado.pack()
+
 janela.mainloop()
