@@ -56,8 +56,6 @@ janela.title("CSV Filter")
 janela.resizable(False, False)
 janela.geometry("500x350")
 
-janela.iconbitmap("filter.ico")
-
 titulo_label = tk.Label(
     janela, 
     text="Filtro de dados da Receita Federal", 
