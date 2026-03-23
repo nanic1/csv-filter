@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 
 # input = arquivo que envia informação
 # output = arquivo que recebe informação
@@ -45,9 +46,11 @@ with open(input_file, "r", encoding="latin-1", newline="") as infile, \
         cnpj = "".join(x.strip() for x in row[0:3])
         matriz = row[3]
         situ_cadastral = row[5]
-        data_situ_cadatral = row[6]
+        data_situ_cadatral = datetime.strptime(row[6], "%Y%m%d")
+        data_situ_cadatral_formatada = data_situ_cadatral.strftime("%d/%m/%Y")
         nome_fantasia = row[8].upper()
-        data_abertura = row[10]
+        data_abertura = datetime.strptime(row[10], "%Y%m%d")
+        data_abertura_formatada = data_abertura.strftime("%d/%m/%Y")
         cnae1 = row[11]
         cnae2 = row[12]
         endereco = " ".join(x.strip() for x in row[13:17]).upper()
@@ -55,9 +58,9 @@ with open(input_file, "r", encoding="latin-1", newline="") as infile, \
         cep = row[18]
         uf = row[19].upper()
         municipioIBGE = row[20]
-        tel1 = "".join(x.strip() for x in row[21:23])
-        tel2 = "".join(x.strip() for x in row[23:25])
-        fax = "".join(x.strip() for x in row[25:27])
+        tel1 = " ".join(x.strip() for x in row[21:23])
+        tel2 = " ".join(x.strip() for x in row[23:25])
+        fax = " ".join(x.strip() for x in row[25:27])
         email = row[27].lower()
         #18
         
@@ -65,7 +68,7 @@ with open(input_file, "r", encoding="latin-1", newline="") as infile, \
 
         # escrever dados abaixo do cabeçalho na ordem informada
         writer.writerow([
-            cnpj, matriz, nome, situ_cadastral, data_situ_cadatral, nome_fantasia, data_abertura, 
+            cnpj, matriz, nome, situ_cadastral, data_situ_cadatral_formatada, nome_fantasia, data_abertura_formatada, 
             cnae1, cnae2, endereco, bairro, cep, uf, municipioIBGE, tel1, tel2, fax, email
         ]) #18
 
