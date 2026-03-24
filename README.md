@@ -7,37 +7,26 @@ O objetivo desse projetos é praticar habilidades em Scrap básico utilizando cs
 ---
 
 ## Tecnologias usadas
-
 * Python
 * CSV
 * Excel (visualização do projeto)
 
 ---
 
-## Como executar o projeto
-### 1- Clone este repositorio no seu computador. Escolha um ambiente onde consiga acessar a pasta com facilidade.
-No seu terminal, execute:
-```
-git clone https://github.com/nanic1/csv-filter-apsa
-cd csv-filter-apsa
-```
+## Como utilizar o projeto
+### 1- Instale o arquivo na pasta dist ou em release
+Dentro da pasta dist, está disponível o último release do aplicativo, você pode instalar também na aba de releases do github na direita da página do repositório.
 
-### 2- Configurar ambiente
-Na raiz do projeto, defina a base que quer filtrar as informações como **"Estabelecimento.csv"**. O filtro será feito no arquivo **"Condominiofiltro.csv"**
+### 2- No aplicativo, defina seu arquivo de base e seus filtros
+Assim que a aplicação abrir, defina o arquivo CSV que deseja utilizar como base para filtragem e quais palavras chaves você deseja filtrar. Um novo arquivo será gerado contendo apenas os nomes das palavras mencionadas.
 
-### 3- Execução do projeto
-Após todas as etapas, finalmente podemos executar e filtrar as informações da base.
-Dentro do projeto, execute este comando:
-```
-python column-read.py
-```
+---
 
-Se não houver nenhum erro, seu terminal deve exibir:
-```
-Copiando arquivos, aguarde um momento...
-```
-
-Após a filtragem dos dados, o arquivo **"Condominiofiltro.csv"** terá seus dados filtrados de acordo com as palavras chaves definidas.
+## Futuras features a serem implemetadas
+* Inclusão de busca por CNPJ / endereço / telefone.
+* Melhorias de interface gráfica.
+* Tornar o software mais rápido.
+* Fazer com que a busca por base para filtragem seja automática.
 
 ---
 
