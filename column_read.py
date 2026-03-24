@@ -42,11 +42,17 @@ def filtrar_arquivo(input_file, output_file, key_words):
             cnpj = "".join(x.strip() for x in row[0:3])
             matriz = row[3]
             situ_cadastral = row[5]
-            data_situ_cadatral = datetime.strptime(row[6], "%Y%m%d")
-            data_situ_cadatral_formatada = data_situ_cadatral.strftime("%d/%m/%Y")
+            try:
+                data_situ_cadatral = datetime.strptime(row[6], "%Y%m%d")
+                data_situ_cadatral_formatada = data_situ_cadatral.strftime("%d/%m/%Y")
+            except:
+                continue
             nome_fantasia = row[8].upper()
-            data_abertura = datetime.strptime(row[10], "%Y%m%d")
-            data_abertura_formatada = data_abertura.strftime("%d/%m/%Y")
+            try:
+                data_abertura = datetime.strptime(row[10], "%Y%m%d")
+                data_abertura_formatada = data_abertura.strftime("%d/%m/%Y")
+            except:
+                continue
             cnae1 = row[11]
             cnae2 = row[12]
             endereco = " ".join(x.strip() for x in row[13:17]).upper()

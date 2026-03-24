@@ -3,9 +3,15 @@ from tkinter import filedialog
 from tkinter import font
 from column_read import filtrar_arquivo
 import csv
+import threading
 
 input_file = ""  # global
 
+def thread_arquivo():
+    thread = threading.Thread(target=selecionar_arquivo)
+    thread.start()
+
+# função para ler arquivos armazenados no computador
 def selecionar_arquivo():
     global input_file
 
@@ -14,6 +20,7 @@ def selecionar_arquivo():
         filetypes=(("Arquivos CSV", "*.csv"), ("Todos os arquivos", "*.*"))
     )
     
+    # se o arquivo for legivel pelo código:
     if input:
         input_file = input
         try:
@@ -26,6 +33,11 @@ def selecionar_arquivo():
         except Exception as e:
             label_arquivo.config(text=f"Erro: {e}") 
 
+def rodar_filtro():
+    thread = threading.Thread(target=executar_filtro)
+    thread.start()
+
+# função para filtrar dados do arquivo base
 def executar_filtro():
     if not input_file:
         label_resultado.config(text="Selecione um arquivo primeiro!")
@@ -63,7 +75,7 @@ titulo_label = tk.Label(
 )
 titulo_label.pack(pady=5)
 
-botao_abrir = tk.Button(janela, text="Escolher CSV", command=selecionar_arquivo)
+botao_abrir = tk.Button(janela, text="Escolher CSV", command=thread_arquivo)
 botao_abrir.pack(pady=5)
 
 label_arquivo = tk.Label(janela, text="Nenhum arquivo")
@@ -80,7 +92,7 @@ entrada_palavras.pack(pady=5)
 entrada_palavras.insert(0, "")
 
 # botão de filtro
-botao_filtrar = tk.Button(janela, text="Filtrar", command=executar_filtro)
+botao_filtrar = tk.Button(janela, text="Filtrar", command=rodar_filtro)
 botao_filtrar.pack(pady=5)
 
 # resultado
