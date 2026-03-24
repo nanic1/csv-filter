@@ -31,15 +31,15 @@ def filtrar_arquivo(input_file, output_file, key_words):
         # varredura de dados
         for row in reader:
             total += 1
+            cnpj = "".join(x.strip() for x in row[0:3])
             nome = row[4].upper()
 
             # se o nome que foi lido NÃO corresponde as palavras chaves escritas = não faça nada
-            if not any(p in nome for p in key_words):
+            if not any((p in nome) or (p in cnpj) for p in key_words):
                 continue
             
             # caso nome corresponda as palavras chaves = siga os comandos abaixo
             # variaveis para organizar as informações uteis e que sejam de acordo com o cabeçalho delimitado
-            cnpj = "".join(x.strip() for x in row[0:3])
             matriz = row[3]
             situ_cadastral = row[5]
             try:
